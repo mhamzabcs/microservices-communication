@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { OrderController } from './order.controller';
-import { OrderService } from './order.service';
-import { Order, OrderSchema } from 'src/core/schemas/order.schema';
+import { PaymentController } from './payment.controller';
+import { PaymentService } from './payment.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { Payment, PaymentSchema } from 'src/core/schemas/payment.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
+    MongooseModule.forFeature([{ name: Payment.name, schema: PaymentSchema }]),
     ClientsModule.register([
       {
         name: 'email-microservice',
@@ -22,7 +22,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       },
     ]),
   ],
-  controllers: [OrderController],
-  providers: [OrderService],
+  controllers: [PaymentController],
+  providers: [PaymentService],
 })
-export class OrderModule {}
+export class PaymentModule {}

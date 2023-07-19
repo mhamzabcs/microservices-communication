@@ -12,7 +12,7 @@ import { UpdatePaymentDTO } from './dto/update-payment.dto';
 export class OrderService {
   constructor(
     @InjectModel(Order.name) private orderModel: Model<Order>,
-    @Inject('order-microservice') private readonly client: ClientProxy,
+    @Inject('email-microservice') private readonly client: ClientProxy,
   ) {}
 
   async create(body: CreateOrderDTO): Promise<Order> {
