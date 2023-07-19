@@ -10,13 +10,24 @@ import { Payment, PaymentSchema } from 'src/core/schemas/payment.schema';
     MongooseModule.forFeature([{ name: Payment.name, schema: PaymentSchema }]),
     ClientsModule.register([
       {
+        name: 'order-microservice',
+        transport: Transport.RMQ,
+        options: {
+          urls: [process.env.RMQ_URL],
+          queue: process.env.RMQ_PAYMENT_QUEUENAME,
+          queueOptions: {
+            durable: true,
+          },
+        },
+      },
+      {
         name: 'email-microservice',
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_URL],
-          queue: 'orders',
+          queue: process.env.RMQ_EMAIL_QUEUENAME,
           queueOptions: {
-            durable: false,
+            durable: true,
           },
         },
       },

@@ -22,6 +22,7 @@ export class Payment {
 
   @Prop({
     type: String,
+    default: PaymentStatus.CREATED,
     enum: [...Object.values(PaymentStatus)],
   })
   status: string;

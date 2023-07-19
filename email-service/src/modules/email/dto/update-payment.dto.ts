@@ -3,7 +3,7 @@ import { PaymentStatus } from 'src/core/enums/PaymentStatus.enum';
 
 export class UpdatePaymentDTO {
   @IsMongoId()
-  readonly paymentId: string;
+  readonly id: string;
 
   @IsEnum(PaymentStatus)
   readonly status: string;

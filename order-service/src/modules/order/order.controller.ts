@@ -18,12 +18,12 @@ export class OrderController {
   }
 
   @Get('/:id')
-  getOrder(@Param('id') id: string): Promise<Order> {
-    return this.orderService.getOrder(id);
+  async getOrder(@Param('id') id: string): Promise<Order> {
+    return await this.orderService.getOrder(id);
   }
 
   @MessagePattern({ cmd: 'updateOrderPayment' })
-  async login(data: UpdatePaymentDTO): Promise<boolean> {
+  async updateOrderPayment(data: UpdatePaymentDTO): Promise<boolean> {
     return await this.orderService.updatePayment(data);
   }
 }

@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { Payment } from './payment.schema';
 import { OrderType } from '../enums/OrderType.enum';
-import { PaymentStatus } from '../enums/PaymentStatus.enum';
+import { OrderStatus } from '../enums/OrderStatus.enum';
 
 export type OrderDocument = mongoose.HydratedDocument<Order>;
 
@@ -26,7 +26,8 @@ export class Order {
 
   @Prop({
     type: String,
-    enum: [...Object.values(PaymentStatus)],
+    default: OrderStatus.CREATED,
+    enum: [...Object.values(OrderStatus)],
   })
   status: string;
 
