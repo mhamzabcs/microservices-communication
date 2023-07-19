@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "e5b3c4a1-0579-46e0-a304-259f402961d1",
+		"name": "microservices-communication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7773390"
+	},
+	"item": [
+		{
+			"name": "Order service",
+			"item": [
+				{
+					"name": "Create an order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@email.com\",\r\n    \"amount\": 100,\r\n    \"type\": \"shoes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order"
+							]
+						},
+						"description": "Order service endpoint"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/order/64b7e63175b33512459fb377",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								"64b7e63175b33512459fb377"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment service",
+			"item": [
+				{
+					"name": "Update payment",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/payment/64b7e631789f69fdc71e0c9d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"payment",
+								"64b7e631789f69fdc71e0c9d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get payment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/payment/64b7e631789f69fdc71e0c9d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"payment",
+								"64b7e631789f69fdc71e0c9d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
