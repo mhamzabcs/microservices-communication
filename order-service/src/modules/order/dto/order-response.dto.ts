@@ -15,4 +15,7 @@ export class OrderResponseDTO {
 
   @Expose()
   amount: number;
+
+  @Expose()
+  payment: string;
 }
