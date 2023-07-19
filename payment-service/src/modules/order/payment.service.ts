@@ -3,7 +3,7 @@ import { CreatePaymentDTO } from './dto/create-payment.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PaymentResponseDTO } from './dto/PaymentResponse.dto';
-import { Payment } from 'src/core/schemas/payment.schema';
+import { Payment, PaymentDocument } from 'src/core/schemas/payment.schema';
 import { ClientProxy } from '@nestjs/microservices';
 import { PaymentStatus } from 'src/core/enums/PaymentStatus.enum';
 import { OrderStatus } from 'src/core/enums/OrderStatus.enum';
@@ -19,10 +19,10 @@ export class PaymentService {
   ) {}
 
   async create(body: CreatePaymentDTO): Promise<PaymentResponseDTO> {
-    const payment = await new this.paymentModel({
+    const payment: PaymentDocument = await new this.paymentModel({
       ...body,
     }).save();
-    this.emailMicroservice.emit({ cmd: 'paymentCreated' }, {});
+    this.emailMicroservice.emit({ cmd: 'paymentCreated' }, { id: payment.id });
     return { paymentId: payment.id, status: payment.status };
   }
 

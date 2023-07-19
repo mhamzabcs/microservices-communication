@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderDTO } from './dto/create-order.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Order } from 'src/core/schemas/order.schema';
+import { Order, OrderDocument } from 'src/core/schemas/order.schema';
 import { ClientProxy } from '@nestjs/microservices';
 import axios, { AxiosResponse } from 'axios';
 import { PaymentResponseDTO } from './dto/PaymentResponse.dto';
@@ -15,23 +15,23 @@ export class OrderService {
     @InjectModel(Order.name) private orderModel: Model<Order>,
   ) {}
 
-  async create(body: CreateOrderDTO): Promise<Order> {
+  async create(body: CreateOrderDTO): Promise<OrderDocument> {
     const response: AxiosResponse<PaymentResponseDTO> = await axios.post(
       `${process.env.PAYMENT_SERVICE_URL}/payment`,
       body,
     );
 
-    const order: Order = await new this.orderModel({
+    const order: OrderDocument = await new this.orderModel({
       ...body,
       payment: response.data.paymentId,
     }).save();
-    this.client.emit({ cmd: 'orderCreated' }, {});
+    this.client.emit({ cmd: 'orderCreated' }, { id: order.id });
 
     return order;
   }
 
-  async getOrder(id: string): Promise<Order> {
-    const order = await this.orderModel.findById(id).exec();
+  async getOrder(id: string): Promise<OrderDocument> {
+    const order: OrderDocument = await this.orderModel.findById(id).exec();
     if (!order) throw new NotFoundException('Order not found');
     return order;
   }

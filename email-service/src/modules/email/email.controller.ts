@@ -7,12 +7,12 @@ export class EmailController {
   constructor(private emailService: EmailService) {}
 
   @MessagePattern({ cmd: 'orderCreated' })
-  orderCreated() {
-    return this.emailService.orderCreated();
+  orderCreated(data: { id: string }) {
+    return this.emailService.orderCreated(data);
   }
 
   @MessagePattern({ cmd: 'paymentCreated' })
-  paymentCreated() {
-    return this.emailService.paymentCreated();
+  paymentCreated(data: { id: string }) {
+    return this.emailService.paymentCreated(data);
   }
 }
