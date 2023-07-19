@@ -17,15 +17,12 @@ export class EmailService {
   }
 
   async paymentCreated(data: { id: string }) {
-    await Promise.resolve([
-      await this.orderModel.updateOne(
+    await Promise.all([
+      this.orderModel.updateOne(
         { payment: data.id },
         { paymentEmailSent: true },
       ),
-      await this.paymentModel.updateOne(
-        { _id: data.id },
-        { paymentEmailSent: true },
-      ),
+      this.paymentModel.updateOne({ _id: data.id }, { paymentEmailSent: true }),
     ]);
     return true;
   }
