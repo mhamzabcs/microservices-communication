@@ -15,9 +15,6 @@ This repo contains three microservices: Order, Payment & Email. Each of them con
 You will need to do the following steps for all three services
 
 ```bash
-
 $  Make sure you are in correct service folder: cd  <service_name>
 $  yarn run start:dev
-
-
 ```
